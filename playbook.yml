@@ -53,6 +53,7 @@
           - meld
           - mirage
           - nmap-ncat
+          - nvtop
           - openssl
           - p7zip
           - pavucontrol

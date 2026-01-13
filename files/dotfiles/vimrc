@@ -1,0 +1,27 @@
+set foldmethod=marker
+set foldmarker={{,}}
+set expandtab
+set ignorecase
+set smartcase
+
+"use old regex, otherwise ruby plugin is slow
+"set re=1
+
+syntax enable
+set background=dark
+set t_Co=256
+
+set textwidth=0
+set wrapmargin=0
+
+set ts=2
+set shiftwidth=2
+set tw=80
+set tw=0
+set title
+set wrap
+
+set clipboard=unnamed
+
+"call pathogen#infect()
+"set mouse=a

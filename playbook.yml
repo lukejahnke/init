@@ -100,3 +100,45 @@
         content: '{"PasswordManagerEnabled":false,"SigninAllowed":false,"MetricsReportingEnabled":false,"CloudPrintProxyEnabled":false,"CloudPrintSubmitEnabled":false,"SyncDisabled":true,"PrivacySandboxAdMeasurementEnabled":false,"PrivacySandboxPromptEnabled":false,"PrivacySandboxAdTopicsEnabled":false,"PrivacySandboxSiteEnabledAdsEnabled":false}'
         dest: /etc/opt/chrome/policies/managed/default_managed_policy.json
         mode: "0644"
+    - name: "user | create account"
+      user:
+        name: "ace"
+        createhome: yes
+    - name: "user | grant sudo access"
+      user:
+        name: "ace"
+        groups: wheel
+        append: yes
+    - name: "user | grant wireshark access"
+      user:
+        name: "ace"
+        groups: wireshark
+        append: yes
+    - name: "user | grant libvirt access"
+      user:
+        name: "ace"
+        groups: libvirt
+        append: yes
+    - name: "setup home directory for user"
+      block:
+        - name: "file | create home directory structure"
+          file:
+            state: directory
+            path: "~/{{ item }}"
+          with_items:
+            - bin
+            - git
+            - notes
+            - personal
+            - projects
+            - resources
+            - tmp
+        - name: "copy | put dotfiles in place"
+          copy:
+            src: "{{ item }}"
+            dest: "~/.{{ item | basename }}"
+            backup: yes
+          with_fileglob:
+            - dotfiles/*
+      become: true
+      become_user: ace

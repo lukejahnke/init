@@ -1,0 +1,6 @@
+XTerm*background:   #000
+XTerm*foreground:   #fff
+XTerm*faceName:     Noto Sans Mono
+XTerm*faceSize:     20
+XTerm*scrollBar:       true
+XTerm*rightScrollBar:  true

@@ -1,0 +1,9 @@
+#!/bin/bash -i
+
+# -i above because we want the dmenu alias
+
+chosen_workspace_name=$(i3-msg -t get_workspaces | jq -r '.[].name' | grep -v '^[0-9]*$' | sort | dmenu)
+
+[ -z "$chosen_workspace_name" ] && exit 1
+
+i3-msg workspace "$chosen_workspace_name"

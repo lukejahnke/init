@@ -142,3 +142,73 @@
             - dotfiles/*
       become: true
       become_user: ace
+# start docker
+    - name: rpm_key | import Docker CE repository gpg key
+      rpm_key:
+        key: https://download.docker.com/linux/fedora/gpg
+        fingerprint: 060A 61C5 1B55 8A7F 742B 77AA C52F EB6B 621E 9F35
+        state: present
+    - name: get_url | add docker repo
+      get_url:
+        url: https://download.docker.com/linux/fedora/docker-ce.repo
+        dest: /etc/yum.repos.d/docker-ce.repo
+        owner: root
+        group: root
+        mode: "0644"
+    - name: dnf | install docker-ce and containerd
+      dnf:
+        name:
+          - docker-ce
+          - docker-ce-cli
+          - containerd
+          - docker-compose-plugin
+    - name: systemd | start and enable the docker service
+      systemd:
+        state: started
+        enabled: yes
+        name: docker
+# end docker
+# start i3
+    - name: "dnf | install"
+      dnf:
+        name:
+          - i3
+          - i3status
+          - pango 
+    - name: "setup i3 for user"
+      block:
+        - name: "pip | install quickswitch plugin dependency"
+          pip:
+            name: "i3-py"
+            state: present
+            extra_args: "--user"
+        - name: "pip | install quickswitch plugin"
+          pip:
+            name: "quickswitch-i3"
+            state: present
+            extra_args: "--no-build-isolation --user"
+        - name: "file | create i3 config directory"
+          file:
+            state: directory
+            path: ~/.config/i3
+        - name: "copy | copy config"
+          copy:
+            src: i3_config
+            dest: ~/.config/i3/config
+            backup: yes
+        - name: "copy | xinitrc"
+          copy:
+            src: i3_xinitrc
+            dest: ~/.xinitrc
+            backup: yes
+        - name: "copy | put i3 helper bins in place"
+          copy:
+            src: "{{ item }}"
+            dest: "~/bin/{{ item | basename }}"
+            backup: yes
+            mode: "0755"
+          with_fileglob:
+            - i3_bins/*
+      become: true
+      become_user: ace
+# end i3

@@ -1,0 +1,7 @@
+#!/bin/bash -i
+
+chosen_workspace_name=$(echo -n | dmenu -p 'New name for this workspace: ')
+
+[ -z "$chosen_workspace_name" ] && exit 1
+
+i3-msg -- $"rename workspace to \"$chosen_workspace_name\""

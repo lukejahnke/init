@@ -1,0 +1,15 @@
+---
+- hosts: localhost
+  connection: local
+  tasks:
+    - name: "ini_file | dnf max_parallel_downloads"
+      ini_file:
+        path: /etc/dnf/dnf.conf
+        no_extra_spaces: true
+        section: main
+        option: max_parallel_downloads
+        value: 10
+    - name: "dnf | update all packages to latest"
+      dnf:
+        name: "*"
+        state: latest

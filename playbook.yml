@@ -97,7 +97,7 @@
         path: /etc/opt/chrome/policies/managed/
     - name: "copy | chrome policy file"
       copy:
-        content: '{"PasswordManagerEnabled":false,"SigninAllowed":false,"MetricsReportingEnabled":false,"CloudPrintProxyEnabled":false,"CloudPrintSubmitEnabled":false,"SyncDisabled":true,"PrivacySandboxAdMeasurementEnabled":false,"PrivacySandboxPromptEnabled":false,"PrivacySandboxAdTopicsEnabled":false,"PrivacySandboxSiteEnabledAdsEnabled":false}'
+        content: '{"PasswordManagerEnabled":false,"SigninAllowed":false,"MetricsReportingEnabled":false,"CloudPrintProxyEnabled":false,"CloudPrintSubmitEnabled":false,"SyncDisabled":true,"PrivacySandboxAdMeasurementEnabled":false,"PrivacySandboxPromptEnabled":false,"PrivacySandboxAdTopicsEnabled":false,"PrivacySandboxSiteEnabledAdsEnabled":false,"SearchSuggestEnabled":false}'
         dest: /etc/opt/chrome/policies/managed/default_managed_policy.json
         mode: "0644"
     - name: "user | create account"

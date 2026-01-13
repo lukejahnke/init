@@ -13,3 +13,81 @@
       dnf:
         name: "*"
         state: latest
+    - name: "dnf | install package groups"
+      dnf:
+        name:
+          - "@base-x"
+          - "@c-development"
+          - "@Fonts"
+          - "@hardware-support"
+          - "@Multimedia"
+          - "@Virtualization"
+    - name: "yum_repository | add google chrome repo"
+      yum_repository:
+        name: google-chrome
+        description: Google Chrome
+        baseurl: https://dl.google.com/linux/chrome/rpm/stable/$basearch
+        enabled: true
+        gpgcheck: true
+        gpgkey: https://dl-ssl.google.com/linux/linux_signing_key.pub
+    - name: "dnf | install packages"
+      dnf:
+        name:
+          - acpi
+          - adobe-source-code-pro-fonts
+          - ascii
+          - arandr
+          - bind-utils
+          - cifs-utils
+          - dnf-utils
+          - google-chrome-stable # -stable because google-chrome is google-chrome-canary
+          - firefox
+          - git
+          - hostapd
+          - htop
+          - ImageMagick
+          - iw
+          - jq
+          - lsof
+          - man-pages
+          - meld
+          - mirage
+          - nmap-ncat
+          - openssl
+          - p7zip
+          - pavucontrol
+          - pcre # needed by quickswitch
+          - plymouth-theme-hot-dog
+          - pwgen
+          - python3-pip
+          - ruby
+          - rubygem-irb
+          - screen
+          - socat
+          - tig
+          - usbutils
+          - v4l-utils
+          - vim-enhanced
+          - vim-X11
+          - vlc
+          - whois
+          - wireshark
+          - wget
+          - wpa_supplicant
+          - x11-ssh-askpass
+          - xprop
+          - xscreensaver-base
+          - xscreensaver-extras
+          - xsel
+          - xterm
+          - yt-dlp
+    # https://developer.chrome.com/docs/extensions/how-to/distribute/install-extensions#preference-linux
+    - name: "file | chrome extension directory"
+      file:
+        state: directory
+        path: /opt/google/chrome/extensions/
+    - name: "copy | ublock extension"
+      copy:
+        content: '{"external_update_url": "https://clients2.google.com/service/update2/crx"}'
+        dest: /opt/google/chrome/extensions/ddkjiahejlhfcafbddmgiahcphecmpfh.json
+        mode: "0644"

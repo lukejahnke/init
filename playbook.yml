@@ -175,6 +175,7 @@
           - i3
           - i3status
           - pango 
+          - python3-setuptools
     - name: "setup i3 for user"
       block:
         - name: "pip | install quickswitch plugin dependency"

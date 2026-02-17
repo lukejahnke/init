@@ -38,6 +38,7 @@
           - ascii
           - arandr
           - bind-utils
+          - bolt
           - cifs-utils
           - dnf-utils
           - google-chrome-stable # -stable because google-chrome is google-chrome-canary
@@ -48,6 +49,7 @@
           - ImageMagick
           - iw
           - jq
+          - libva-utils # vainfo (to get extra, intel-media-driver (non-free))
           - lsof
           - man-pages
           - meld
@@ -65,15 +67,17 @@
           - rubygem-irb
           - screen
           - socat
+          - sqlite
           - tig
           - usbutils
           - v4l-utils
           - vim-enhanced
           - vim-X11
           - vlc
+          - wget
           - whois
           - wireshark
-          - wget
+          - words
           - wpa_supplicant
           - x11-ssh-askpass
           - xprop

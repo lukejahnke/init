@@ -86,6 +86,14 @@
           - xsel
           - xterm
           - yt-dlp
+    # /usr/libexec/Xorg.wrap: Only console users are allowed to run the X server
+    # due to kmscon by default now. could mask kmsconvt@tty1 and enable --now getty@tty1
+    - name: "copy | copy Xwrapper config"
+      copy:
+        src: Xwrapper.config
+        dest: /etc/X11/Xwrapper.config
+        mode: "0644"
+        backup: yes
     # https://developer.chrome.com/docs/extensions/how-to/distribute/install-extensions#preference-linux
     - name: "file | chrome extension directory"
       file:

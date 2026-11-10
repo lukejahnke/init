@@ -145,13 +145,20 @@
             - projects
             - resources
             - tmp
-        - name: "copy | put dotfiles in place"
+        - name: "copy | put dotfiles in place (managed)"
           copy:
             src: "{{ item }}"
             dest: "~/.{{ item | basename }}"
             backup: yes
           with_fileglob:
-            - dotfiles/*
+            - dotfiles_managed/*
+        - name: "copy | put dotfiles if not exists (default)"
+          copy:
+            src: "{{ item }}"
+            dest: "~/.{{ item | basename }}"
+            force: false
+          with_fileglob:
+            - dotfiles_default/*
       become: true
       become_user: ace
 # start docker

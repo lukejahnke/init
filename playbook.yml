@@ -59,7 +59,6 @@
           - openssl
           - p7zip
           - pavucontrol
-          - pcre # needed by quickswitch
           - plymouth-theme-hot-dog
           - pwgen
           - python3-pip

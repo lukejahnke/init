@@ -40,6 +40,7 @@
           - bind-utils
           - bolt
           - cifs-utils
+          - distribution-gpg-keys # rpmfusion keys
           - dnf-utils
           - google-chrome-stable # -stable because google-chrome is google-chrome-canary
           - firefox
@@ -85,6 +86,31 @@
           - xsel
           - xterm
           - yt-dlp
+    - name: "rpm_key | import rpmfusion free key"
+      rpm_key:
+        key: /usr/share/distribution-gpg-keys/rpmfusion/RPM-GPG-KEY-rpmfusion-free-fedora-{{ ansible_distribution_major_version }}
+        fingerprint: E9A491A3DE247814E7E067EAE06F8ECDD651FF2E
+    - name: "rpm_key | import rpmfusion nonfree key"
+      rpm_key:
+        key: /usr/share/distribution-gpg-keys/rpmfusion/RPM-GPG-KEY-rpmfusion-nonfree-fedora-{{ ansible_distribution_major_version }}
+        fingerprint: 79BDB88F9BBF73910FD4095B6A2AF96194843C65
+    - name: "dnf | install rpmfusion nonfree release"
+      dnf:
+        name: https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_major_version }}.noarch.rpm
+        state: present
+        # ansible dnf differs to cli dnf. cli uses localpkg_gpgcheck
+        disable_gpg_check: false
+    - name: "dnf | install rpmfusion free release"
+      dnf:
+        name: https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_major_version }}.noarch.rpm
+        state: present
+        # ansible dnf differs to cli dnf. cli uses localpkg_gpgcheck
+        disable_gpg_check: false
+    # couldn't combine with earlier dnf install as we need distribution-gpg-keys
+    - name: "dnf | install packages"
+      dnf:
+        name:
+          - intel-media-driver
     # /usr/libexec/Xorg.wrap: Only console users are allowed to run the X server
     # due to kmscon by default now. could mask kmsconvt@tty1 and enable --now getty@tty1
     - name: "copy | copy Xwrapper config"

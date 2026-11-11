@@ -157,6 +157,11 @@
         name: "ace"
         groups: libvirt
         append: yes
+    - name: "user | grant audio access"
+      user:
+        name: "ace"
+        groups: audio
+        append: yes
     - name: "setup home directory for user"
       block:
         - name: "file | create home directory structure"
